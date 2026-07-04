@@ -3,16 +3,28 @@
   <channel>
     <title>VoiceDict</title>
     <item>
-      <title>VoiceDict v0.6.0</title>
-      <pubDate>Sat, 04 Jul 2026 16:57:40 +0000</pubDate>
-      <sparkle:version>13</sparkle:version>
-      <sparkle:shortVersionString>0.6.0</sparkle:shortVersionString>
+      <title>VoiceDict v0.6.1</title>
+      <pubDate>Sat, 04 Jul 2026 17:12:49 +0000</pubDate>
+      <sparkle:version>14</sparkle:version>
+      <sparkle:shortVersionString>0.6.1</sparkle:shortVersionString>
       <sparkle:minimumSystemVersion>14.0</sparkle:minimumSystemVersion>
       <description><![CDATA[<pre style="font-family: -apple-system, sans-serif; white-space: pre-wrap;">
-VoiceDict v0.6.0 リリースノート
+VoiceDict v0.6.1 リリースノート
 ==================================
 
 このバージョンの主要変更点。
+
+■ カスタム LLM (LiteLLM 等) の失敗・設定不備を必ずエラー表示
+カスタム (OpenAI 互換) エンドポイント利用時に「何も起きないように
+見える」ケースを解消しました。
+- 後処理 LLM の出力が空だった場合、黙ってスキップせず理由を小窓に表示
+- Base URL / モデル名が未設定・不正な場合は、録音を開始する前に検査して
+  即エラー表示 (話し終えてから気づく必要がなくなりました)
+- ハンズフリー開始に失敗した場合も理由を表示
+
+
+v0.6.0 から継承される機能
+--------------------------
 
 ■ 自動アップデート機能 (Sparkle)
 新しいバージョンが出ると、アプリ内に更新ダイアログが表示され
@@ -128,7 +140,7 @@ v0.2.1 から継承される機能
 - SFSpeechRecognizer 権限を起動時/Settings 切替時に先回り request。
 - WhisperKit streaming モードの文末欠損を緩和。
 </pre>]]></description>
-      <enclosure url="https://github.com/NAL-6295/voicedict-releases/releases/download/v0.6.0/VoiceDict-0.6.0.zip" sparkle:edSignature="w5EaMnAsZST4xBh3C5xHpk1WAe2o8jlo3nQeBfHo8k8Ns15LjA54Ipoj0HtZIwWuiTWs9MuEvRz+G2dqWeQzCw==" length="38852928" type="application/octet-stream"/>
+      <enclosure url="https://github.com/NAL-6295/voicedict-releases/releases/download/v0.6.1/VoiceDict-0.6.1.zip" sparkle:edSignature="lDPNU+l5zxdFw0T4TYmparollYe0i4BEH+nH+1RSJe5Mn0Rq9ge6jABlTVoQaXVZMDn1xeGaGjjF9ZzukbAxBg==" length="38859459" type="application/octet-stream"/>
     </item>
   </channel>
 </rss>
