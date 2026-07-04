@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0" xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle">
+  <channel>
+    <title>VoiceDict</title>
+    <item>
+      <title>VoiceDict v0.6.0</title>
+      <pubDate>Sat, 04 Jul 2026 16:57:40 +0000</pubDate>
+      <sparkle:version>13</sparkle:version>
+      <sparkle:shortVersionString>0.6.0</sparkle:shortVersionString>
+      <sparkle:minimumSystemVersion>14.0</sparkle:minimumSystemVersion>
+      <description><![CDATA[<pre style="font-family: -apple-system, sans-serif; white-space: pre-wrap;">
+VoiceDict v0.6.0 リリースノート
+==================================
+
+このバージョンの主要変更点。
+
+■ 自動アップデート機能 (Sparkle)
+新しいバージョンが出ると、アプリ内に更新ダイアログが表示され
+「インストール」1 クリックで更新が完了するようになりました。
+zip を手動でダウンロードして入れ替える作業は今回が最後です。
+- メニューバーアイコン → 「アップデートを確認…」でいつでも手動確認可
+- 定期的な自動チェックは、初回起動時に表示される確認ダイアログで
+  許可した場合のみ有効になります (確認先は開発者の GitHub のみ)
+- 更新ファイルは電子署名 (EdDSA) で検証され、改ざんされた更新が
+  インストールされることはありません
+
+
+v0.5.2 から継承される機能
+--------------------------
+- Developer ID 署名 + ノータライズ (公証) 配布。インストールは
+  ダブルクリックだけ (ターミナル操作不要)。
+- 旧版 (v0.5.1 以前の ad-hoc 署名版) から更新する場合、署名発行元の
+  変更により権限の再許可と API キーの再入力が必要になる場合があります
+  (設定・辞書・履歴は引き継がれます)。
+
+
+v0.5.1 から継承される機能
+--------------------------
+
+■ 文字起こし確定処理の内部品質改善
+文字起こしの確定 (finalize) とキャンセルの待ち合わせ処理を、全プロバイダ
+共通の状態機械 FinalizeGate に集約した。これまで「Recognizing… のまま
+固まる」「キャンセルが効かない」系の不具合が繰り返し発生していた箇所で、
+どの順序でイベントが届いても一度だけ確実に完了することを保証し、
+過去に起きたバグパターンを回帰テスト 15 件で固定した。
+
+■ WhisperKit モデルロード中にキャンセルが効かない問題を修正
+アプリ起動直後などモデルロード中 (large 系で約 6 秒、初回ダウンロード時
+は数分) に録音を確定すると、ESC やタイムアウトが効かずロード完了まで
+待たされていた。ロード待ちをキャンセル応答型にし、いつでも中断できる
+ように修正 (ロード自体は裏で続くため、次回はそのまま使える)。
+
+
+v0.5.0 から継承される機能
+--------------------------
+- 失敗理由をエラー表示する小窓: 音声入力が失敗したとき、録音インジケータ
+  小窓が赤系のエラー表示 (⚠ + 理由) に切り替わり約 4 秒で自動で消える。
+  理由の例: API キー未設定 / 認識結果が空 / ネットワークエラー /
+  タイムアウト / 録音開始失敗。ESC / ✕ のキャンセルはエラー扱いしない。
+- xAI STT (ストリーミング) で最終テキストが出力されない問題を修正
+  (サーバの transcript.done が空で届くため、確定チャンクの蓄積・連結で
+  最終テキストを組み立てるように)。
+- オーディオデバイス変更によるクラッシュと無音録音を修正 (録音エンジンを
+  毎回作り直し + デバイス構成変更を検知して通常録音は理由表示で中断、
+  ハンズフリーは新デバイスで自動再開)。
+
+v0.4.1 から継承される機能
+--------------------------
+- STT の音声バッファ蓄積処理を共通土台 AudioBufferAccumulator に統一
+  (内部リファクタリング。finalize・cancel 周りの安定化の地固め)。
+
+
+v0.4.0 から継承される機能
+--------------------------
+- カスタム (OpenAI 互換) 後処理 LLM エンドポイントを追加。
+  Settings → Providers で「カスタム (OpenAI 互換)」を選び、
+  Base URL・モデル名・API キー (任意) を設定 (Dictation / Edit で共有)。
+  接続先の例: LiteLLM proxy / Gemini OpenAI 互換エンドポイント /
+  Ollama・LM Studio・vLLM などのローカルサーバ (完全ローカル運用可)。
+- temperature 等の生成パラメータは送信せず、サンプリング設定は
+  サーバ / proxy 側に委ねる (パラメータ指定を拒否するモデル対策)。
+- `/chat/completions` は自動付与。API キー未設定なら Authorization
+  ヘッダ自体を送らない。
+- reasoning モデルが本文に混ぜる思考過程 (<think> タグ) は自動除去。
+  ディクテーション用途には非 reasoning モデルを推奨。
+- カスタム選択時の初回同意ダイアログに「送信先はユーザ指定サーバで、
+  取扱いはユーザ管理」の注意書きを追加。
+
+
+v0.3.3 から継承される機能
+--------------------------
+- OpenAI (gpt-5-nano) 後処理が HTTP 400 で必ず失敗する問題を修正。
+- 「Recognizing…」のまま固まる hang を修正 (Apple SFSpeechRecognizer の
+  finalize 競合 + xAI ストリーミングのキャンセル不伝播。ESC / 90 秒
+  タイムアウトに即応答するように)。
+
+
+v0.3.2 から継承される機能
+--------------------------
+- OpenAI 後処理 LLM の既定モデルを gpt-5-nano に更新 (速い・安価)。
+- MLX ローカル LLM に LFM2.5 1.2B JP (4bit) を追加。日本語特化・約0.7GB の
+  最軽量モデル (LiquidAI/LFM2.5-1.2B-JP-202606-MLX-4bit、初回自動 DL)。
+- ディクテーション後処理の回答化・echo を抑制 (プロンプト明確化 +
+  MLX 生成パラメータのモデル別化、LFM2 系は Liquid AI 公式推奨値)。
+- 録音インジケータ小窓に前回の preview テキストが残るのを修正。
+
+
+v0.3.1 から継承される機能
+--------------------------
+- ✕ / ESC キャンセルが効かない 2 つのバグを修正:
+  (1) pipeline timeout sentinel の誤検知 (`try? await Task.sleep` が
+      sleep の cancel を swallow し、worker 正常完了時にも timeout エラー
+      が発火するレース) を do-catch + early return で修正。
+  (2) pipelineTask.cancel() が unstructured な worker Task に propagate
+      されない問題を、worker を class メンバ保持 + 両方明示 cancel で修正。
+
+
+v0.3.0 から継承される機能
+--------------------------
+- 録音中も STT の partial transcription を録音インジケータの上に slide-up で
+  リアルタイム表示 (Apple SFSpeechRecognizer / WhisperKit streaming / xAI STT
+  WebSocket 対応)。
+- LLM streaming 開始時にテキストが LLM 生成結果に滑らかに置換される遷移。
+
+
+v0.2.1 から継承される機能
+--------------------------
+- SFSpeechRecognizer 権限を起動時/Settings 切替時に先回り request。
+- WhisperKit streaming モードの文末欠損を緩和。
+</pre>]]></description>
+      <enclosure url="https://github.com/NAL-6295/voicedict-releases/releases/download/v0.6.0/VoiceDict-0.6.0.zip" sparkle:edSignature="w5EaMnAsZST4xBh3C5xHpk1WAe2o8jlo3nQeBfHo8k8Ns15LjA54Ipoj0HtZIwWuiTWs9MuEvRz+G2dqWeQzCw==" length="38852928" type="application/octet-stream"/>
+    </item>
+  </channel>
+</rss>
