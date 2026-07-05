@@ -3,16 +3,32 @@
   <channel>
     <title>VoiceDict</title>
     <item>
-      <title>VoiceDict v0.6.1</title>
-      <pubDate>Sat, 04 Jul 2026 17:12:49 +0000</pubDate>
-      <sparkle:version>14</sparkle:version>
-      <sparkle:shortVersionString>0.6.1</sparkle:shortVersionString>
+      <title>VoiceDict v0.6.2</title>
+      <pubDate>Sun, 05 Jul 2026 12:13:24 +0000</pubDate>
+      <sparkle:version>15</sparkle:version>
+      <sparkle:shortVersionString>0.6.2</sparkle:shortVersionString>
       <sparkle:minimumSystemVersion>14.0</sparkle:minimumSystemVersion>
       <description><![CDATA[<pre style="font-family: -apple-system, sans-serif; white-space: pre-wrap;">
-VoiceDict v0.6.1 リリースノート
+VoiceDict v0.6.2 リリースノート
 ==================================
 
 このバージョンの主要変更点。
+
+■ 依存 OSS のライセンス表示 (Third-Party Notices) を同梱
+配布 zip に THIRD_PARTY_NOTICES.md を同梱するようにしました。
+アプリが利用しているオープンソースソフトウェア (MLX Swift /
+WhisperKit / Sparkle / HuggingFace 製ライブラリ等、全 19 件) の
+著作権表示とライセンス全文をまとめたものです。
+
+■ 「VoiceDict について」ウィンドウを追加
+メニューバーのメニューに「VoiceDict について」を追加しました。
+アプリのバージョン情報と、上記サードパーティライセンスの全文を
+アプリ内でいつでも確認できます (自動アップデートで更新している
+方は zip を開く機会がないため、アプリ内でも見られるようにしました)。
+
+
+v0.6.1 から継承される機能
+--------------------------
 
 ■ カスタム LLM (LiteLLM 等) の失敗・設定不備を必ずエラー表示
 カスタム (OpenAI 互換) エンドポイント利用時に「何も起きないように
@@ -140,7 +156,7 @@ v0.2.1 から継承される機能
 - SFSpeechRecognizer 権限を起動時/Settings 切替時に先回り request。
 - WhisperKit streaming モードの文末欠損を緩和。
 </pre>]]></description>
-      <enclosure url="https://github.com/NAL-6295/voicedict-releases/releases/download/v0.6.1/VoiceDict-0.6.1.zip" sparkle:edSignature="lDPNU+l5zxdFw0T4TYmparollYe0i4BEH+nH+1RSJe5Mn0Rq9ge6jABlTVoQaXVZMDn1xeGaGjjF9ZzukbAxBg==" length="38859459" type="application/octet-stream"/>
+      <enclosure url="https://github.com/NAL-6295/voicedict-releases/releases/download/v0.6.2/VoiceDict-0.6.2.zip" sparkle:edSignature="GNcVVEQ8+Soux9rUoOATLJY+cnH1Mj56YqheLL0C0fTeWKESZWFg2Zg0U2bPfjq/cjugbpEPvdmcm93l3EclBw==" length="38889957" type="application/octet-stream"/>
     </item>
   </channel>
 </rss>
