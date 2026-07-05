@@ -3,16 +3,33 @@
   <channel>
     <title>VoiceDict</title>
     <item>
-      <title>VoiceDict v0.6.2</title>
-      <pubDate>Sun, 05 Jul 2026 12:13:24 +0000</pubDate>
-      <sparkle:version>15</sparkle:version>
-      <sparkle:shortVersionString>0.6.2</sparkle:shortVersionString>
+      <title>VoiceDict v0.6.3</title>
+      <pubDate>Sun, 05 Jul 2026 17:26:24 +0000</pubDate>
+      <sparkle:version>16</sparkle:version>
+      <sparkle:shortVersionString>0.6.3</sparkle:shortVersionString>
       <sparkle:minimumSystemVersion>14.0</sparkle:minimumSystemVersion>
       <description><![CDATA[<pre style="font-family: -apple-system, sans-serif; white-space: pre-wrap;">
-VoiceDict v0.6.2 リリースノート
+VoiceDict v0.6.3 リリースノート
 ==================================
 
 このバージョンの主要変更点。
+
+■ VS Code 等で常に Edit Mode になる誤検出を修正
+VS Code / Cursor / Sublime Text / Zed / JetBrains 系エディタで、
+テキストを選択していないのに Edit Mode (選択範囲の書き換え) に
+入ってしまう問題を修正しました。これらのエディタの「選択なしでも
+Cmd+C で現在行をコピーする」仕様が原因で、行コピーを選択と
+誤認していたものです。選択して話せば従来どおり Edit Mode に
+入ります (行末の改行まで含めて丸ごと選択した場合のみ、安全の
+ため通常の音声入力として扱われます)。
+
+■ 空行などの「見えない選択」は通常の音声入力として扱うように
+改行やスペースだけを選択した状態で話した場合、Edit Mode では
+なく通常の音声入力 (カーソル位置への挿入) になるようにしました。
+
+
+v0.6.2 から継承される機能
+--------------------------
 
 ■ 依存 OSS のライセンス表示 (Third-Party Notices) を同梱
 配布 zip に THIRD_PARTY_NOTICES.md を同梱するようにしました。
@@ -156,7 +173,7 @@ v0.2.1 から継承される機能
 - SFSpeechRecognizer 権限を起動時/Settings 切替時に先回り request。
 - WhisperKit streaming モードの文末欠損を緩和。
 </pre>]]></description>
-      <enclosure url="https://github.com/NAL-6295/voicedict-releases/releases/download/v0.6.2/VoiceDict-0.6.2.zip" sparkle:edSignature="GNcVVEQ8+Soux9rUoOATLJY+cnH1Mj56YqheLL0C0fTeWKESZWFg2Zg0U2bPfjq/cjugbpEPvdmcm93l3EclBw==" length="38889957" type="application/octet-stream"/>
+      <enclosure url="https://github.com/NAL-6295/voicedict-releases/releases/download/v0.6.3/VoiceDict-0.6.3.zip" sparkle:edSignature="PVuG996OrrGpuPm0p5W/V8ccnZKf2RshOkZO1pHYjoZbPo6ME5E8JxLpjhk/W9VDnSVa/sX5PZv+K2yjED7ZAQ==" length="38892075" type="application/octet-stream"/>
     </item>
   </channel>
 </rss>
