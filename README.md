@@ -1,18 +1,72 @@
-# VoiceDict Releases
+# VoiceDict
 
-macOS の menubar 常駐型音声入力アプリ **VoiceDict** の配布リポジトリです。
-（ソースコードのリポジトリは非公開で、ここには配布物のみを置いています）
+macOS のメニューバーに常駐する音声入力アプリです。
+**録音 → 文字起こし → LLM による整形 → いま使っているアプリのテキストフィールドへ挿入**、をホットキー 1 つで完結させます。
+
+プライバシー重視の設計で、**完全ローカル動作**（音声もテキストも端末から出ない構成）から、クラウド AI を使った高品質構成まで、用途に合わせてプロバイダを選べます。
 
 ## ダウンロード
 
-最新版は [Releases](https://github.com/NAL-6295/voicedict-releases/releases/latest) から
-`VoiceDict-share.zip` をダウンロードしてください。
+最新版は **[Releases](https://github.com/NAL-6295/voicedict-releases/releases/latest)** から `VoiceDict-share.zip` をダウンロードしてください。
 
-- 展開して `VoiceDict.app` を `/Applications` へコピー → ダブルクリックで起動
-  （Developer ID 署名 + Apple ノータライズ済み。ターミナル操作は不要です）
-- 動作要件や初回の権限設定は zip 同梱の `README-初回起動手順.txt` を参照
+1. zip を展開して `VoiceDict.app` を `/Applications` へコピー
+2. ダブルクリックで起動（Developer ID 署名 + Apple ノータライズ済み。ターミナル操作は不要です）
+3. 初回の権限設定などは zip 同梱の `README-初回起動手順.txt` を参照
 
-## 自動アップデート
+インストール後は**アプリ内の自動アップデート**（Sparkle）で最新版を受け取れるので、このページに戻ってくる必要はありません。
 
-v0.6.0 以降のアプリは Sparkle による自動アップデートに対応しています。
-`appcast.xml` はそのフィードです（アプリが自動で参照します）。
+## 主な機能
+
+### 音声入力の基本
+
+- **ホットキーで即録音**: Shift+Option 同時押し（既定）/ Fn 長押し / カスタムショートカット / 任意の 1 キー
+- **3 つの動作モード**: 押している間だけ録音（Push-to-talk）/ トグル / **ハンズフリー**（マイク常時 ON で発話を自動検出）
+- **録音インジケータ**: 画面下中央の小窓に録音状態・マイクレベル・**認識中のテキストのリアルタイムプレビュー**・処理の進捗を表示。失敗時は**理由をエラー表示**（API キー未設定、設定不備、ネットワークエラーなど）
+- 録音中は他アプリの音量を自動で下げる**ダッキング**（ON/OFF・比率調整可）
+
+### 文字起こし（STT）— 4 プロバイダから選択
+
+| プロバイダ | ローカル | 特徴 |
+|---|---|---|
+| Apple 音声認識 | ✅ | OS 同梱・設定不要・最速 |
+| WhisperKit | ✅ | オンデバイス Whisper（tiny〜large-v3 turbo）。高精度 |
+| OpenAI Whisper API | ☁️ | whisper-1 / gpt-4o-transcribe 系 |
+| xAI STT | ☁️ | WebSocket ストリーミング対応 |
+
+### 整形（後処理 LLM）— 8 プロバイダから選択
+
+フィラー除去・句読点・辞書適用などの整形を行います。Dictation 用と Edit 用で別々の LLM を設定できます。
+
+- **ローカル**: 後処理なし / NaturalLanguage（軽量整形）/ Apple Foundation Models / **MLX ローカル LLM**（Llama 3.2、Qwen3、LFM2.5 日本語特化 など。Apple Intelligence 不要）
+- **クラウド**: Claude / OpenAI / xAI Grok / **カスタム（OpenAI 互換）** — LiteLLM proxy・Ollama・LM Studio・vLLM 等を指定可能（ローカルサーバなら完全ローカル運用）
+
+### Edit Mode — 選択範囲を声で書き換え
+
+テキストを選択した状態で話すと、その指示で選択範囲を書き換えます。
+
+> 例:「これを英語に翻訳して」「もっと丁寧に」「箇条書きにして」
+
+LLM の生成中テキストは小窓にリアルタイム表示され、✕ ボタン / ESC でいつでもキャンセルできます。
+
+### その他
+
+- **辞書登録**: 専門用語の置換テーブル（LLM プロンプトにも注入）
+- **履歴**: 保持期間を選択可（無効〜無期限）
+- **ログイン時自動起動**
+- **自動アップデート**: 新バージョンをアプリ内 1 クリックで適用（EdDSA 署名検証付き）
+
+## プライバシー
+
+- ローカル系プロバイダ（Apple 音声認識 / WhisperKit / MLX / NaturalLanguage / Foundation Models）だけを選んでいる限り、**音声・テキストは端末から一切出ません**
+- クラウドサービスを初めて使うときは、送信先を明示した**同意ダイアログ**が必ず表示されます
+- API キーは macOS の Keychain に保存されます
+- 自動アップデートの確認先はこのリポジトリのみで、定期チェックは初回起動時に許可した場合のみ有効です
+
+## 動作要件
+
+- **macOS 14.0 (Sonoma) 以降**、Apple Silicon Mac 推奨
+- Apple Foundation Models を後処理に使う場合のみ macOS 26+ + Apple Intelligence 対応機が必要（他の構成は macOS 14 で全機能動作）
+
+---
+
+ソースコードのリポジトリは非公開です。不具合報告・要望はこのリポジトリの [Issues](https://github.com/NAL-6295/voicedict-releases/issues) へどうぞ。
