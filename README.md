@@ -7,7 +7,9 @@ macOS のメニューバーに常駐する音声入力アプリです。
 
 ## デモ
 
-<!-- ここに動画をドラッグ&ドロップしてください (この行は置き換え) -->
+https://github.com/user-attachments/assets/b8a66a7f-3ebc-445a-a735-b97b4d4474bc
+
+
 
 VS Code 上で音声入力している様子です (文字起こし → ローカル LLM 整形 → 挿入)。
 
