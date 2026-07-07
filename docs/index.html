@@ -11,140 +11,123 @@
 <meta property="og:url" content="https://nal-6295.github.io/voicedict-releases/">
 <style>
   :root {
-    --bg: #0d1117;
-    --bg-panel: #161b22;
-    --text: #e6edf3;
-    --text-sub: #8b949e;
-    --border: #30363d;
-    --accent: #58a6ff;
-    --accent2: #bc8cff;
-    --green: #3fb950;
-    --radius: 12px;
+    --text: #1d1d1f;
+    --text-sub: #6e6e73;
+    --accent: #0071e3;
+    --accent-dark: #0051a3;
+    --bg: #ffffff;
+    --bg-alt: #f5f5f7;
+    --card: #ffffff;
+    --border: #e5e5ea;
+    --radius: 18px;
   }
   * { margin: 0; padding: 0; box-sizing: border-box; }
   body {
-    font-family: "Hiragino Sans", -apple-system, BlinkMacSystemFont, sans-serif;
-    background: var(--bg); color: var(--text); line-height: 1.7;
+    font-family: "Hiragino Sans", "SF Pro JP", -apple-system, BlinkMacSystemFont, sans-serif;
+    color: var(--text);
+    background: var(--bg);
+    line-height: 1.7;
     -webkit-font-smoothing: antialiased;
   }
-  code, .mono { font-family: "SF Mono", ui-monospace, Menlo, monospace; }
   .container { max-width: 1080px; margin: 0 auto; padding: 0 24px; }
 
   /* Hero */
-  .hero { padding: 96px 0 64px; text-align: center; position: relative; overflow: hidden; }
-  .hero::before {
-    content: ""; position: absolute; inset: -40% -20% auto;
-    height: 560px; pointer-events: none;
-    background: radial-gradient(ellipse at 50% 0%, rgba(88,166,255,.18), rgba(188,140,255,.10) 45%, transparent 70%);
-  }
-  .hero > .container { position: relative; }
+  .hero { text-align: center; padding: 96px 0 64px; }
   .hero .badge {
-    display: inline-flex; align-items: center; gap: 8px;
-    font-size: 13px; color: var(--text-sub);
-    border: 1px solid var(--border); border-radius: 999px;
-    padding: 6px 14px; margin-bottom: 28px; background: rgba(22,27,34,.8);
+    display: inline-block; font-size: 13px; font-weight: 600;
+    color: var(--accent); background: #eaf3fe;
+    padding: 6px 14px; border-radius: 999px; margin-bottom: 24px;
+    letter-spacing: 0.02em;
   }
-  .hero .badge .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--green); }
   .hero h1 {
     font-size: clamp(36px, 6vw, 60px); font-weight: 700;
     letter-spacing: -0.02em; line-height: 1.25;
   }
-  .hero h1 .grad {
-    background: linear-gradient(90deg, var(--accent), var(--accent2));
-    -webkit-background-clip: text; background-clip: text; color: transparent;
-  }
+  .hero h1 .accent { color: var(--accent); }
   .hero p.lead {
-    font-size: clamp(16px, 2.4vw, 20px); color: var(--text-sub);
+    font-size: clamp(16px, 2.4vw, 21px); color: var(--text-sub);
     max-width: 640px; margin: 24px auto 0;
   }
-  .cta-row { margin-top: 40px; display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+  .cta-row { margin-top: 40px; display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
   .btn {
     display: inline-block; text-decoration: none; font-weight: 600;
-    font-size: 16px; padding: 13px 30px; border-radius: 10px;
-    transition: transform .15s ease, opacity .15s ease;
+    font-size: 17px; padding: 14px 32px; border-radius: 999px;
+    transition: transform .15s ease, box-shadow .15s ease;
   }
-  .btn-primary {
-    color: #0d1117;
-    background: linear-gradient(90deg, var(--accent), var(--accent2));
-  }
-  .btn-primary:hover { transform: translateY(-1px); opacity: .92; }
-  .btn-secondary { color: var(--text); border: 1px solid var(--border); background: var(--bg-panel); }
-  .btn-secondary:hover { border-color: var(--text-sub); }
+  .btn-primary { background: var(--accent); color: #fff; box-shadow: 0 4px 14px rgba(0,113,227,.35); }
+  .btn-primary:hover { background: var(--accent-dark); transform: translateY(-1px); }
+  .btn-secondary { color: var(--accent); border: 1px solid var(--border); background: #fff; }
+  .btn-secondary:hover { background: var(--bg-alt); }
   .hero .req { margin-top: 16px; font-size: 13px; color: var(--text-sub); }
 
-  /* Pipeline (terminal 風) */
-  .pipeline { padding: 8px 0 72px; }
-  .term {
-    max-width: 720px; margin: 0 auto; background: var(--bg-panel);
-    border: 1px solid var(--border); border-radius: var(--radius);
-    overflow: hidden; box-shadow: 0 16px 48px rgba(0,0,0,.5);
+  /* Flow strip */
+  .flow { background: var(--bg-alt); padding: 40px 0; }
+  .flow-inner {
+    display: flex; align-items: center; justify-content: center;
+    gap: 8px; flex-wrap: wrap; font-weight: 600; font-size: clamp(14px, 2vw, 18px);
   }
-  .term-bar { display: flex; gap: 7px; padding: 12px 14px; border-bottom: 1px solid var(--border); }
-  .term-bar span { width: 12px; height: 12px; border-radius: 50%; }
-  .term-bar span:nth-child(1) { background: #ff5f57; }
-  .term-bar span:nth-child(2) { background: #febc2e; }
-  .term-bar span:nth-child(3) { background: #28c840; }
-  .term-body { padding: 22px 26px; font-size: 14px; }
-  .term-body .line { display: block; margin-bottom: 10px; }
-  .term-body .p { color: var(--text-sub); }
-  .term-body .k { color: var(--accent); font-weight: 600; }
-  .term-body .ok { color: var(--green); }
+  .flow-step {
+    background: #fff; border: 1px solid var(--border); border-radius: 12px;
+    padding: 12px 20px; display: flex; align-items: center; gap: 10px;
+  }
+  .flow-step .num {
+    font-size: 11px; font-weight: 700; color: var(--accent);
+    letter-spacing: 0.08em;
+  }
+  .flow-arrow { color: var(--accent); font-size: 20px; }
 
   /* Demo */
-  .demo { padding: 72px 0; text-align: center; }
+  .demo { padding: 80px 0; text-align: center; }
   h2.section {
-    font-size: clamp(24px, 4vw, 36px); font-weight: 700;
-    letter-spacing: -0.01em; margin-bottom: 10px;
+    font-size: clamp(26px, 4vw, 40px); font-weight: 700;
+    letter-spacing: -0.01em; margin-bottom: 12px;
   }
-  p.section-sub { color: var(--text-sub); font-size: 16px; margin-bottom: 36px; }
-  .demo video {
+  p.section-sub { color: var(--text-sub); font-size: 17px; margin-bottom: 40px; }
+  .demo video, .demo .video-fallback {
     width: 100%; max-width: 860px; border-radius: var(--radius);
-    border: 1px solid var(--border); box-shadow: 0 24px 64px rgba(0,0,0,.55);
+    box-shadow: 0 20px 60px rgba(0,0,0,.15); border: 1px solid var(--border);
   }
 
   /* Features */
-  .features { padding: 72px 0; border-top: 1px solid var(--border); }
+  .features { background: var(--bg-alt); padding: 80px 0; }
   .grid {
-    display: grid; gap: 20px;
+    display: grid; gap: 24px;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    margin-top: 44px;
+    margin-top: 48px;
   }
   .card {
-    background: var(--bg-panel); border: 1px solid var(--border);
-    border-radius: var(--radius); padding: 28px 24px;
-    transition: border-color .2s ease;
+    background: var(--card); border-radius: var(--radius);
+    padding: 32px 28px; border: 1px solid var(--border);
   }
-  .card:hover { border-color: var(--accent); }
-  .card .icon { font-size: 28px; margin-bottom: 14px; }
-  .card h3 { font-size: 17px; font-weight: 700; margin-bottom: 8px; }
-  .card p { font-size: 14px; color: var(--text-sub); }
-  .card p code {
-    font-size: 12px; background: rgba(110,118,129,.2);
-    padding: 1px 6px; border-radius: 5px;
+  .card .icon {
+    width: 44px; height: 44px; margin-bottom: 18px;
+    display: flex; align-items: center; justify-content: center;
+    border-radius: 11px; background: #eaf3fe; color: var(--accent);
   }
+  .card .icon svg { width: 22px; height: 22px; }
+  .card h3 { font-size: 19px; font-weight: 700; margin-bottom: 8px; }
+  .card p { font-size: 15px; color: var(--text-sub); }
 
   /* Privacy */
-  .privacy { padding: 72px 0; border-top: 1px solid var(--border); }
-  .privacy-box {
-    max-width: 760px; margin: 40px auto 0; background: var(--bg-panel);
-    border: 1px solid var(--border); border-radius: var(--radius); padding: 8px 28px;
+  .privacy { padding: 80px 0; text-align: center; }
+  .privacy .points {
+    display: flex; gap: 32px; justify-content: center; flex-wrap: wrap;
+    margin-top: 40px; text-align: left;
   }
-  .privacy-box .row {
-    display: flex; gap: 14px; padding: 18px 0; align-items: baseline;
-    border-bottom: 1px solid var(--border);
-  }
-  .privacy-box .row:last-child { border-bottom: none; }
-  .privacy-box .check { color: var(--green); font-weight: 700; }
-  .privacy-box .row h3 { font-size: 15px; min-width: 11em; }
-  .privacy-box .row p { font-size: 14px; color: var(--text-sub); }
+  .point { max-width: 300px; }
+  .point h3 { font-size: 17px; font-weight: 700; margin-bottom: 6px; }
+  .point h3::before { content: "✓ "; color: var(--accent); }
+  .point p { font-size: 14px; color: var(--text-sub); }
 
-  /* Bottom */
-  .bottom-cta { padding: 88px 0; text-align: center; border-top: 1px solid var(--border); }
-  .bottom-cta p.free { margin-top: 16px; font-size: 14px; color: var(--text-sub); }
+  /* Bottom CTA */
+  .bottom-cta {
+    background: linear-gradient(180deg, var(--bg-alt), #eaf3fe);
+    text-align: center; padding: 88px 0;
+  }
+  .bottom-cta p.free { font-size: 15px; color: var(--text-sub); margin-top: 16px; }
 
   footer {
-    border-top: 1px solid var(--border);
-    padding: 28px 0; text-align: center; font-size: 13px; color: var(--text-sub);
+    padding: 32px 0; text-align: center; font-size: 13px; color: var(--text-sub);
   }
   footer a { color: var(--text-sub); }
 </style>
@@ -153,28 +136,26 @@
 
 <section class="hero">
   <div class="container">
-    <div class="badge"><span class="dot"></span>macOS 14+ / Apple Silicon 推奨 / 無料 / OSS スタック</div>
-    <h1>話すだけで、どこにでも。<br><span class="grad">ローカル LLM</span> が整える音声入力</h1>
-    <p class="lead">VoiceDict は macOS のメニューバーに常駐する音声入力アプリ。話した言葉を端末内の LLM が読みやすい文章に整え、エディタでもチャットでも、フォーカス中のアプリへそのまま挿入します。</p>
+    <div class="badge">macOS 14+ / Apple Silicon 推奨 / 無料</div>
+    <h1>話すだけで、<span class="accent">どこにでも。</span><br>ローカル LLM が整える音声入力</h1>
+    <p class="lead">VoiceDict は macOS のメニューバーに常駐する音声入力アプリ。話した言葉を端末内の LLM が読みやすい文章に整え、いま使っているアプリへそのまま挿入します。</p>
     <div class="cta-row">
       <a class="btn btn-primary" href="https://github.com/NAL-6295/voicedict-releases/releases/latest">ダウンロード</a>
       <a class="btn btn-secondary" href="https://github.com/NAL-6295/voicedict-releases">GitHub で見る</a>
     </div>
-    <div class="req">Developer ID 署名 + Apple ノータライズ済み。ターミナル操作は不要です。</div>
+    <div class="req">Developer ID 署名 + Apple ノータライズ済み。ダブルクリックで起動できます。</div>
   </div>
 </section>
 
-<section class="pipeline">
-  <div class="container">
-    <div class="term mono">
-      <div class="term-bar"><span></span><span></span><span></span></div>
-      <div class="term-body">
-        <span class="line"><span class="p">$</span> <span class="k">🎤 speak</span>  <span class="p">"えーと 明日の 10 時からの会議 リスケでお願いします"</span></span>
-        <span class="line"><span class="p">→ transcribe</span>  <span class="ok">on-device</span>  <span class="p">(SFSpeechRecognizer / WhisperKit)</span></span>
-        <span class="line"><span class="p">→ refine</span>      <span class="ok">on-device</span>  <span class="p">(MLX local LLM)</span></span>
-        <span class="line"><span class="p">→ insert</span>      <span class="k">"明日 10 時からの会議はリスケでお願いします。"</span></span>
-      </div>
-    </div>
+<section class="flow">
+  <div class="container flow-inner">
+    <div class="flow-step"><span class="num">01</span>話す</div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step"><span class="num">02</span>文字起こし</div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step"><span class="num">03</span>ローカル LLM で整形</div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step"><span class="num">04</span>アプリへ自動挿入</div>
   </div>
 </section>
 
@@ -191,34 +172,34 @@
     <h2 class="section" style="text-align:center">主な機能</h2>
     <div class="grid">
       <div class="card">
-        <div class="icon">⚡️</div>
+        <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M9 9h6v6H9z"/><path d="M9 9V6a3 3 0 1 0-3 3h3z"/><path d="M15 9V6a3 3 0 1 1 3 3h-3z"/><path d="M15 15v3a3 3 0 1 0 3-3h-3z"/><path d="M9 15v3a3 3 0 1 1-3-3h3z"/></svg></div>
         <h3>ホットキー一発、どのアプリでも</h3>
-        <p>Shift+Option 同時押し・Fn 長押し・カスタムショートカットなど 4 方式。Push-to-talk / トグル / ハンズフリー (VAD) の 3 モード。</p>
+        <p>Shift+Option 同時押し・Fn 長押し・カスタムショートカットなど 4 方式。Push-to-talk / トグル / ハンズフリー(発話自動検出)の 3 モード。</p>
       </div>
       <div class="card">
-        <div class="icon">🧠</div>
+        <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="7" width="10" height="10" rx="2"/><rect x="10.5" y="10.5" width="3" height="3" rx="0.5"/><path d="M9 7V4M15 7V4M9 20v-3M15 20v-3M7 9H4M7 15H4M20 9h-3M20 15h-3"/></svg></div>
         <h3>ローカル LLM が文章を整える</h3>
-        <p>フィラー除去・句読点・誤変換の修正を端末内で実行。<code>MLX</code> + 4bit 量子化モデルで Apple Intelligence 不要、完全オフライン動作。</p>
+        <p>「えーと」の除去・句読点・誤変換の修正を端末内の LLM (MLX) が実行。Apple Intelligence 不要、API キー不要、完全オフラインで動作。</p>
       </div>
       <div class="card">
-        <div class="icon">🔀</div>
+        <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h13m0 0-3-3m3 3-3 3"/><path d="M20 17H7m0 0 3 3m-3-3 3-3"/></svg></div>
         <h3>プロバイダを自由に選べる</h3>
-        <p>STT 4 種 (Apple / WhisperKit / OpenAI / xAI)、整形 LLM 8 種。<code>LiteLLM</code> / <code>Ollama</code> 等の OpenAI 互換エンドポイントにも接続可。</p>
+        <p>文字起こしは 4 種 (Apple / WhisperKit / OpenAI / xAI)、整形 LLM は 8 種。軽量ローカル + 強力クラウドの使い分けも。</p>
       </div>
       <div class="card">
-        <div class="icon">✏️</div>
+        <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M17 3.5a2.5 2.5 0 0 1 3.5 3.5L8 19.5 3.5 20.5 4.5 16 17 3.5z"/><path d="M14.5 6l3.5 3.5"/></svg></div>
         <h3>Edit Mode — 声で書き換え</h3>
-        <p>テキストを選択して「英語に翻訳して」と話すだけで選択範囲を書き換え。生成中のテキストはリアルタイム表示、ESC でいつでも中断。</p>
+        <p>テキストを選択して「英語に翻訳して」「もっと丁寧に」と話すだけで、選択範囲を書き換え。生成中のテキストはリアルタイム表示。</p>
       </div>
       <div class="card">
-        <div class="icon">📚</div>
+        <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20V3H6.5A2.5 2.5 0 0 0 4 5.5v14z"/><path d="M4 19.5A2.5 2.5 0 0 0 6.5 22H20v-5"/></svg></div>
         <h3>辞書と履歴</h3>
-        <p>専門用語の置換テーブルを登録、LLM プロンプトにも注入。履歴の保持期間は無効〜無期限から選択。</p>
+        <p>専門用語の置換テーブルを登録でき、LLM プロンプトにも注入。入力履歴は保持期間を選択可能 (無効〜無期限)。</p>
       </div>
       <div class="card">
-        <div class="icon">🔄</div>
+        <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-2.64-6.36"/><path d="M21 3v6h-6"/></svg></div>
         <h3>自動アップデート</h3>
-        <p>新バージョンはアプリ内 1 クリックで適用 (Sparkle)。更新ファイルは EdDSA 署名で改ざん検証。</p>
+        <p>新バージョンはアプリ内 1 クリックで適用 (Sparkle)。更新ファイルは EdDSA 署名で改ざん検証されます。</p>
       </div>
     </div>
   </div>
@@ -226,13 +207,25 @@
 
 <section class="privacy">
   <div class="container">
-    <h2 class="section" style="text-align:center">プライバシーは、設計で守る</h2>
-    <p class="section-sub" style="text-align:center">「クラウドに送らない」を選べることが、VoiceDict の出発点です。</p>
-    <div class="privacy-box">
-      <div class="row"><span class="check">✓</span><h3>完全ローカル動作</h3><p>ローカル系プロバイダだけを選べば、音声もテキストも端末から一切出ません。</p></div>
-      <div class="row"><span class="check">✓</span><h3>明示的な同意</h3><p>クラウドサービスの初回利用時は、送信先を明示した同意ダイアログを必ず表示。</p></div>
-      <div class="row"><span class="check">✓</span><h3>Keychain 保存</h3><p>API キーは端末ローカル限定で Keychain に保存。iCloud には同期しません。</p></div>
-      <div class="row"><span class="check">✓</span><h3>Sandbox 有効</h3><p>macOS Sandbox 内で動作。要求する権限はマイクとネットワークだけ。</p></div>
+    <h2 class="section">プライバシーは、設計で守る</h2>
+    <p class="section-sub">「クラウドに送らない」を選べることが、VoiceDict の出発点です。</p>
+    <div class="points">
+      <div class="point">
+        <h3>完全ローカル動作</h3>
+        <p>ローカル系プロバイダだけを選べば、音声もテキストも端末から一切出ません。</p>
+      </div>
+      <div class="point">
+        <h3>明示的な同意</h3>
+        <p>クラウドサービスを初めて使うときは、送信先を明示した同意ダイアログを必ず表示。</p>
+      </div>
+      <div class="point">
+        <h3>Keychain 保存</h3>
+        <p>API キーは macOS の Keychain に端末ローカル限定で保存。iCloud には同期しません。</p>
+      </div>
+      <div class="point">
+        <h3>Sandbox 有効</h3>
+        <p>アプリは macOS Sandbox 内で動作。要求する権限はマイクとネットワークだけです。</p>
+      </div>
     </div>
   </div>
 </section>
