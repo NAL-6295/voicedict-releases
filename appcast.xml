@@ -3,16 +3,32 @@
   <channel>
     <title>VoiceDict</title>
     <item>
-      <title>VoiceDict v0.6.4</title>
-      <pubDate>Wed, 08 Jul 2026 16:50:55 +0000</pubDate>
-      <sparkle:version>17</sparkle:version>
-      <sparkle:shortVersionString>0.6.4</sparkle:shortVersionString>
+      <title>VoiceDict v0.6.5</title>
+      <pubDate>Tue, 14 Jul 2026 16:08:51 +0000</pubDate>
+      <sparkle:version>18</sparkle:version>
+      <sparkle:shortVersionString>0.6.5</sparkle:shortVersionString>
       <sparkle:minimumSystemVersion>14.0</sparkle:minimumSystemVersion>
       <description><![CDATA[<pre style="font-family: -apple-system, sans-serif; white-space: pre-wrap;">
-VoiceDict v0.6.4 リリースノート
+VoiceDict v0.6.5 リリースノート
 ==================================
 
 このバージョンの主要変更点。
+
+■ オーディオ入力デバイスの切替機能を追加
+メニューバー → 「オーディオ入力」または Settings → 一般 から、録音に
+使うマイクを切り替えられるようになりました。macOS のデフォルト入力
+デバイスを切り替える方式です (コントロールセンターのマイク選択と
+同じ操作の代行のため、他のアプリの音声入力にも影響します)。
+
+■ Bluetooth マイク利用時に録音が中断されることがある問題を改善
+Bluetooth マイクのプロファイル切替などで実害のないデバイス構成変更
+通知が届いた際に、「オーディオデバイスが変更されました」と録音が
+中断されてしまうことがありました。実際に音声が止まっているかを確認
+してから対処するようにし、誤中断を防ぎます。
+
+
+v0.6.4 から継承される機能
+--------------------------
 
 ■ 無音時に「ありがとうございます」等の幻聴テキストが表示される問題を修正
 録音を開始してまだ何も話していないのに、録音インジケータの小窓に
@@ -182,7 +198,7 @@ v0.2.1 から継承される機能
 - SFSpeechRecognizer 権限を起動時/Settings 切替時に先回り request。
 - WhisperKit streaming モードの文末欠損を緩和。
 </pre>]]></description>
-      <enclosure url="https://github.com/NAL-6295/voicedict-releases/releases/download/v0.6.4/VoiceDict-0.6.4.zip" sparkle:edSignature="1QmJfHJFN2QLwlevwSyk0ai8cFexsakpwKFHSKS6qa64sJukkiN5MvEGjY3BKvTkyiSv61m6Ay6t9UqXCxxJCQ==" length="38897090" type="application/octet-stream"/>
+      <enclosure url="https://github.com/NAL-6295/voicedict-releases/releases/download/v0.6.5/VoiceDict-0.6.5.zip" sparkle:edSignature="QOvb0vUtwC5JdgxL74x6Cz3XEauUBMuTS6Wz8ShB6pE3JsgF6YxlfXTmirSidSZzt2+5kmp+rE0q1Blh4IpYCA==" length="38928606" type="application/octet-stream"/>
     </item>
   </channel>
 </rss>
