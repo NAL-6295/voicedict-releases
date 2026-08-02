@@ -3,16 +3,44 @@
   <channel>
     <title>VoiceDict</title>
     <item>
-      <title>VoiceDict v0.6.5</title>
-      <pubDate>Tue, 14 Jul 2026 16:08:51 +0000</pubDate>
-      <sparkle:version>18</sparkle:version>
-      <sparkle:shortVersionString>0.6.5</sparkle:shortVersionString>
+      <title>VoiceDict v0.7.0</title>
+      <pubDate>Sun, 02 Aug 2026 15:24:58 +0000</pubDate>
+      <sparkle:version>19</sparkle:version>
+      <sparkle:shortVersionString>0.7.0</sparkle:shortVersionString>
       <sparkle:minimumSystemVersion>14.0</sparkle:minimumSystemVersion>
       <description><![CDATA[<pre style="font-family: -apple-system, sans-serif; white-space: pre-wrap;">
-VoiceDict v0.6.5 リリースノート
+VoiceDict v0.7.0 リリースノート
 ==================================
 
 このバージョンの主要変更点。
+
+■ クラウド LLM のモデルを最新のものへ更新 (重要)
+OpenAI と xAI の後処理モデルを現行のモデルへ更新しました。
+  - OpenAI: gpt-5-nano → gpt-5.6-luna
+  - xAI: grok-4-1-fast-non-reasoning → grok-4.20-non-reasoning
+xAI の旧モデルは 2026 年 8 月 15 日に提供終了となり、それ以降は旧モデル
+名を指定しても別モデル (grok-4.3) の料金で処理される仕様です。OpenAI の
+旧モデルも 2026 年 12 月に提供終了が予告されています。クラウド LLM を
+お使いの方は、このバージョンへの更新をおすすめします。
+Claude (Haiku 4.5) は現行モデルのため変更ありません。
+
+■ 認識・整形中のプレビュー表示をオフにできるようにしました
+Settings → 一般 の「認識・整形中のプレビューを表示する」で、録音インジ
+ケータの上に流れる文字起こし・生成テキストの表示を止められます (既定は
+オン)。オフにすると表示の更新処理自体を行わないため、動作を軽くしたい
+場合に有効です。録音インジケータ本体 (波形・経過時間・キャンセルボタン)
+とエラー表示はオフでも従来どおり表示されます。
+
+■ 初回セットアップ画面が毎回表示される問題を修正
+アプリ起動のたびに Onboarding 画面が開いていましたが、初回起動時のみ
+表示するようになりました。あとから見たい場合はメニューバーから開けます。
+
+■ WhisperKit で録音停止後に処理が終わらなくなる問題を修正
+WhisperKit を使用中、録音停止やキャンセルの直後に処理が固まったまま
+戻らなくなることがある問題を修正しました。
+
+v0.6.5 から継承される機能
+--------------------------
 
 ■ オーディオ入力デバイスの切替機能を追加
 メニューバー → 「オーディオ入力」または Settings → 一般 から、録音に
@@ -198,7 +226,7 @@ v0.2.1 から継承される機能
 - SFSpeechRecognizer 権限を起動時/Settings 切替時に先回り request。
 - WhisperKit streaming モードの文末欠損を緩和。
 </pre>]]></description>
-      <enclosure url="https://github.com/NAL-6295/voicedict-releases/releases/download/v0.6.5/VoiceDict-0.6.5.zip" sparkle:edSignature="QOvb0vUtwC5JdgxL74x6Cz3XEauUBMuTS6Wz8ShB6pE3JsgF6YxlfXTmirSidSZzt2+5kmp+rE0q1Blh4IpYCA==" length="38928606" type="application/octet-stream"/>
+      <enclosure url="https://github.com/NAL-6295/voicedict-releases/releases/download/v0.7.0/VoiceDict-0.7.0.zip" sparkle:edSignature="7iefljic1jrx07+Lde2gnUy3Bn9iuTFvGo9Gjb1h4vQmJk09tJkb3ZV8aUK+lZerDDBmHyuhVMIBup8vShQ3AA==" length="39073414" type="application/octet-stream"/>
     </item>
   </channel>
 </rss>
