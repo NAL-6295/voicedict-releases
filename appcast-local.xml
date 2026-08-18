@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0" xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle">
+  <channel>
+    <title>VoiceDict Local</title>
+    <item>
+      <title>VoiceDict Local v0.7.0</title>
+      <pubDate>Tue, 18 Aug 2026 13:32:35 +0000</pubDate>
+      <sparkle:version>19</sparkle:version>
+      <sparkle:shortVersionString>0.7.0</sparkle:shortVersionString>
+      <sparkle:minimumSystemVersion>14.0</sparkle:minimumSystemVersion>
+      <description><![CDATA[<pre style="font-family: -apple-system, sans-serif; white-space: pre-wrap;">
+VoiceDict Local v0.7.0 リリースノート
+======================================
+
+VoiceDict のローカル専用版、最初のリリースです。
+
+■ ローカル専用版とは
+
+クラウドサービスを使う機能が**アプリに含まれていない**ビルドです。
+設定で選べないのではなく、実装そのものがビルドに入っていません。
+
+含まれないもの:
+  - Claude / OpenAI / xAI Grok / OpenAI 互換カスタムエンドポイント (後処理 LLM)
+  - OpenAI Whisper API / xAI STT (音声認識)
+  - 上記に伴う API キーの入力・保存
+
+含まれるもの (すべて端末内で完結):
+  - 音声認識: Apple SFSpeechRecognizer / WhisperKit
+  - 後処理: 後処理なし / NaturalLanguage / Apple Foundation Models /
+            MLX ローカル LLM
+  - 辞書・履歴・ホットキー・Edit Mode など、通常版と同じ機能
+
+録音した音声、認識したテキスト、辞書の内容が外部へ送信される経路は
+存在しません。これらを送る実装がアプリに無いためです。
+
+■ 通信について
+
+「一切通信しない」アプリではありません。次の 2 つだけ通信します。
+
+  1. モデルのダウンロード (WhisperKit / MLX を選んだ場合のみ、初回)
+  2. アップデートの確認 (初回起動時のダイアログで断れば行いません)
+
+Apple SFSpeechRecognizer + NaturalLanguage (いずれも既定) の構成なら
+どちらも発生せず、インターネット接続の無い環境で全機能が動作します。
+
+■ 通常版との併用
+
+別アプリとして扱われるため、通常版と同時にインストールできます。
+設定・辞書・履歴・権限はそれぞれ独立します (通常版の設定は引き継ぎません)。
+
+両方を同時に起動すると同じホットキーに両方が反応するため、併用する場合は
+どちらか一方のホットキーを変更してください。
+
+■ 機能について
+
+機能面は通常版 v0.7.0 と同じです。クラウド関連以外の変更はありません。
+</pre>]]></description>
+      <enclosure url="https://github.com/NAL-6295/voicedict-releases/releases/download/local-v0.7.0/VoiceDict-Local-0.7.0.zip" sparkle:edSignature="qSUkN9MNsYITWlDzdDfZGagFgWJuHp47HJhoIzwlY99mqw2EE3iV59HZlKuOSBjmIKpBZq8lcm8SHmfJQNOJCg==" length="21845671" type="application/octet-stream"/>
+    </item>
+  </channel>
+</rss>

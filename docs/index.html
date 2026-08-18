@@ -119,6 +119,36 @@
   .point h3::before { content: "✓ "; color: var(--accent); }
   .point p { font-size: 14px; color: var(--text-sub); }
 
+  /* Local edition */
+  .local { background: var(--bg-alt); padding: 80px 0; }
+  .local .eyebrow {
+    display: inline-block; font-size: 12px; font-weight: 700; letter-spacing: .06em;
+    color: var(--accent); background: #eaf3fe; padding: 6px 14px; border-radius: 999px;
+    margin-bottom: 16px;
+  }
+  .local-head { text-align: center; }
+  .local-cols {
+    display: flex; gap: 20px; flex-wrap: wrap; justify-content: center; margin-top: 40px;
+  }
+  .local-col {
+    background: #fff; border: 1px solid var(--border); border-radius: var(--radius);
+    padding: 28px; flex: 1 1 320px; max-width: 420px;
+  }
+  .local-col h3 { font-size: 17px; font-weight: 700; margin-bottom: 14px; }
+  .local-col ul { list-style: none; }
+  .local-col li { font-size: 15px; color: var(--text-sub); padding: 5px 0 5px 24px; position: relative; }
+  .local-col li::before { position: absolute; left: 0; font-weight: 700; }
+  .local-col.out li::before { content: "×"; color: #c7c7cc; }
+  .local-col.in li::before { content: "✓"; color: var(--accent); }
+  .local-note {
+    margin: 32px auto 0; max-width: 720px; background: #fff;
+    border: 1px solid var(--border); border-left: 3px solid var(--accent);
+    border-radius: 12px; padding: 20px 24px; text-align: left;
+  }
+  .local-note h4 { font-size: 15px; font-weight: 700; margin-bottom: 8px; }
+  .local-note p { font-size: 14px; color: var(--text-sub); }
+  .local .cta-row { margin-top: 32px; }
+
   /* Bottom CTA */
   .bottom-cta {
     background: linear-gradient(180deg, var(--bg-alt), #eaf3fe);
@@ -141,6 +171,7 @@
     <p class="lead">VoiceDict は macOS のメニューバーに常駐する音声入力アプリ。話した言葉を端末内の LLM が読みやすい文章に整え、いま使っているアプリへそのまま挿入します。</p>
     <div class="cta-row">
       <a class="btn btn-primary" href="https://github.com/NAL-6295/voicedict-releases/releases/latest">ダウンロード</a>
+      <a class="btn btn-secondary" href="#local">ローカル専用版はこちら</a>
       <a class="btn btn-secondary" href="https://github.com/NAL-6295/voicedict-releases">GitHub で見る</a>
     </div>
     <div class="req">Developer ID 署名 + Apple ノータライズ済み。ダブルクリックで起動できます。</div>
@@ -237,6 +268,47 @@
       <a class="btn btn-primary" href="https://github.com/NAL-6295/voicedict-releases/releases/latest">最新版をダウンロード</a>
     </div>
     <p class="free">無料 / macOS 14.0 (Sonoma) 以降 / Apple Silicon 推奨</p>
+  </div>
+</section>
+
+<section class="local" id="local">
+  <div class="container">
+    <div class="local-head">
+      <span class="eyebrow">企業・機密環境向け</span>
+      <h2 class="section">クラウドを含まない「ローカル専用版」</h2>
+      <p class="section-sub">設定でオフにするのではなく、クラウド機能の実装そのものがビルドに入っていません。</p>
+    </div>
+    <div class="local-cols">
+      <div class="local-col out">
+        <h3>含まれないもの</h3>
+        <ul>
+          <li>Claude / OpenAI / xAI Grok による整形</li>
+          <li>OpenAI 互換のカスタムエンドポイント</li>
+          <li>OpenAI Whisper API / xAI STT による文字起こし</li>
+          <li>API キーの入力・保存</li>
+        </ul>
+      </div>
+      <div class="local-col in">
+        <h3>含まれるもの（すべて端末内で完結）</h3>
+        <ul>
+          <li>文字起こし: Apple SFSpeechRecognizer / WhisperKit</li>
+          <li>整形: NaturalLanguage / Apple Foundation Models / MLX ローカル LLM</li>
+          <li>辞書・履歴・ホットキー・Edit Mode</li>
+          <li>通常版と同じ操作感（違いはクラウド機能の有無だけ）</li>
+        </ul>
+      </div>
+    </div>
+    <div class="local-note">
+      <h4>通信について（正確に）</h4>
+      <p>「一切通信しない」アプリではありません。通信するのは <strong>モデルのダウンロード</strong>（WhisperKit / MLX を選んだ場合の初回のみ）と <strong>アップデートの確認</strong>（初回のダイアログで断れば行いません）の 2 つだけです。録音した音声・認識したテキスト・辞書の内容を送信する実装は、このビルドに存在しません。既定の Apple SFSpeechRecognizer + NaturalLanguage の構成なら、その 2 つも発生せず、インターネット接続の無い環境で全機能が動作します。</p>
+    </div>
+    <div class="local-note">
+      <h4>通常版と同時に使えます</h4>
+      <p>別アプリとして扱われるため、通常版と併せてインストールできます。設定・辞書・履歴はそれぞれ独立します（通常版の設定は引き継ぎません）。両方を同時に起動する場合は、ホットキーが競合するのでどちらか一方を変更してください。</p>
+    </div>
+    <div class="cta-row">
+      <a class="btn btn-primary" href="https://github.com/NAL-6295/voicedict-releases/releases/latest">ローカル専用版をダウンロード</a>
+    </div>
   </div>
 </section>
 
