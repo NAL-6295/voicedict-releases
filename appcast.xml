@@ -3,16 +3,44 @@
   <channel>
     <title>VoiceDict</title>
     <item>
-      <title>VoiceDict v0.7.0</title>
-      <pubDate>Sun, 02 Aug 2026 15:24:58 +0000</pubDate>
-      <sparkle:version>19</sparkle:version>
-      <sparkle:shortVersionString>0.7.0</sparkle:shortVersionString>
+      <title>VoiceDict v0.7.1</title>
+      <pubDate>Mon, 24 Aug 2026 15:43:29 +0000</pubDate>
+      <sparkle:version>20</sparkle:version>
+      <sparkle:shortVersionString>0.7.1</sparkle:shortVersionString>
       <sparkle:minimumSystemVersion>14.0</sparkle:minimumSystemVersion>
       <description><![CDATA[<pre style="font-family: -apple-system, sans-serif; white-space: pre-wrap;">
-VoiceDict v0.7.0 リリースノート
+VoiceDict v0.7.1 リリースノート
 ==================================
 
 このバージョンの主要変更点。
+
+■ オンデバイス音声認識 (WhisperKit) に精度重視のモデルを追加
+Settings → Providers の WhisperKit モデル選択に、次の 2 つを追加しました。
+  - large-v3 turbo (626MB) … 開発元 Argmax が多言語の精度が最も高いと
+    している構成です。日本語が主な用途のため、これを推奨にしました。
+  - large-v3 turbo 非圧縮 (約1.6GB) … macOS 向けに用意されている無圧縮
+    版で、速度と精度を両立させたい場合の選択肢です。
+既にお使いのモデルはそのまま維持されます。切り替えたい場合のみ設定から
+選び直してください (未ダウンロードのモデルを選ぶと初回に取得が走ります)。
+
+なお、これまで「large-v3 軽量 (547MB)」を「蒸留 decoder で軽量化」、
+「large-v3 turbo (632MB)」を「最高品質」と説明していましたが、これは
+誤りでした。547MB と 626MB の違いは decoder の作りではなく圧縮の強さで、
+どちらも同じ turbo です。表記を実態に合わせて修正しました。
+
+■ オンデバイス後処理 LLM (MLX) のモデルを 2026 年 8 月時点の構成へ更新
+選択肢に Qwen3 4B Instruct 2507 と LFM2.5 2.6B を追加しました。
+Qwen3 4B Instruct 2507 は思考トークンを出さない構成のため、これまでの
+Qwen3 4B と比べて整形の待ち時間が短くなります。
+新規インストール時の既定モデルを Llama 3.2 3B からこの Qwen3 4B
+Instruct 2507 へ変更しました。旧既定は 2024 年世代で日本語が弱かった
+ためです。既にお使いの方の設定は変わりません (これまで選んでいた
+モデルがそのまま使われます)。
+LFM2.5 2.6B は整形用途では出力が安定しないことを実機で確認したため、
+選択肢としては提供しますが推奨はしていません。
+
+v0.7.0 から継承される機能
+--------------------------
 
 ■ クラウド LLM のモデルを最新のものへ更新 (重要)
 OpenAI と xAI の後処理モデルを現行のモデルへ更新しました。
@@ -226,7 +254,7 @@ v0.2.1 から継承される機能
 - SFSpeechRecognizer 権限を起動時/Settings 切替時に先回り request。
 - WhisperKit streaming モードの文末欠損を緩和。
 </pre>]]></description>
-      <enclosure url="https://github.com/NAL-6295/voicedict-releases/releases/download/v0.7.0/VoiceDict-0.7.0.zip" sparkle:edSignature="7iefljic1jrx07+Lde2gnUy3Bn9iuTFvGo9Gjb1h4vQmJk09tJkb3ZV8aUK+lZerDDBmHyuhVMIBup8vShQ3AA==" length="39073414" type="application/octet-stream"/>
+      <enclosure url="https://github.com/NAL-6295/voicedict-releases/releases/download/v0.7.1/VoiceDict-0.7.1.zip" sparkle:edSignature="8e1lUeT5KL31tQ3M5iGFZKLA1n57vY2wBzNbz5kmHwJ+0gmElQoBzpq+uyMTMkn689cNiWYprmLZAVVsMnXqBA==" length="39094835" type="application/octet-stream"/>
     </item>
   </channel>
 </rss>
