@@ -3,16 +3,46 @@
   <channel>
     <title>VoiceDict Local</title>
     <item>
-      <title>VoiceDict Local v0.7.0</title>
-      <pubDate>Tue, 18 Aug 2026 13:32:35 +0000</pubDate>
-      <sparkle:version>19</sparkle:version>
-      <sparkle:shortVersionString>0.7.0</sparkle:shortVersionString>
+      <title>VoiceDict Local v0.7.1</title>
+      <pubDate>Mon, 24 Aug 2026 15:49:47 +0000</pubDate>
+      <sparkle:version>20</sparkle:version>
+      <sparkle:shortVersionString>0.7.1</sparkle:shortVersionString>
       <sparkle:minimumSystemVersion>14.0</sparkle:minimumSystemVersion>
       <description><![CDATA[<pre style="font-family: -apple-system, sans-serif; white-space: pre-wrap;">
-VoiceDict Local v0.7.0 リリースノート
+VoiceDict Local v0.7.1 リリースノート
 ======================================
 
-VoiceDict のローカル専用版、最初のリリースです。
+このバージョンの主要変更点。
+
+■ オンデバイス音声認識 (WhisperKit) に精度重視のモデルを追加
+Settings → Providers の WhisperKit モデル選択に、次の 2 つを追加しました。
+  - large-v3 turbo (626MB) … 開発元 Argmax が多言語の精度が最も高いと
+    している構成です。日本語が主な用途のため、これを推奨にしました。
+  - large-v3 turbo 非圧縮 (約1.6GB) … macOS 向けに用意されている無圧縮
+    版で、速度と精度を両立させたい場合の選択肢です。
+既にお使いのモデルはそのまま維持されます。切り替えたい場合のみ設定から
+選び直してください (未ダウンロードのモデルを選ぶと初回に取得が走ります)。
+
+なお、これまで「large-v3 軽量 (547MB)」を「蒸留 decoder で軽量化」、
+「large-v3 turbo (632MB)」を「最高品質」と説明していましたが、これは
+誤りでした。547MB と 626MB の違いは decoder の作りではなく圧縮の強さで、
+どちらも同じ turbo です。表記を実態に合わせて修正しました。
+
+■ オンデバイス後処理 LLM (MLX) のモデルを 2026 年 8 月時点の構成へ更新
+選択肢に Qwen3 4B Instruct 2507 と LFM2.5 2.6B を追加しました。
+Qwen3 4B Instruct 2507 は思考トークンを出さない構成のため、これまでの
+Qwen3 4B と比べて整形の待ち時間が短くなります。
+新規インストール時の既定モデルを Llama 3.2 3B からこの Qwen3 4B
+Instruct 2507 へ変更しました。旧既定は 2024 年世代で日本語が弱かった
+ためです。既にお使いの方の設定は変わりません (これまで選んでいた
+モデルがそのまま使われます)。
+LFM2.5 2.6B は整形用途では出力が安定しないことを実機で確認したため、
+選択肢としては提供しますが推奨はしていません。
+
+このローカル専用版では音声認識も後処理もすべて端末内で動くため、上記の
+2 つはそのまま本体の品質に効きます。
+
+以下はローカル専用版そのものの説明です (v0.7.0 から変更ありません)。
 
 ■ ローカル専用版とは
 
@@ -53,9 +83,9 @@ Apple SFSpeechRecognizer + NaturalLanguage (いずれも既定) の構成なら
 
 ■ 機能について
 
-機能面は通常版 v0.7.0 と同じです。クラウド関連以外の変更はありません。
+機能面は通常版 v0.7.1 と同じです。クラウド関連以外の変更はありません。
 </pre>]]></description>
-      <enclosure url="https://github.com/NAL-6295/voicedict-releases/releases/download/local-v0.7.0/VoiceDict-Local-0.7.0.zip" sparkle:edSignature="qSUkN9MNsYITWlDzdDfZGagFgWJuHp47HJhoIzwlY99mqw2EE3iV59HZlKuOSBjmIKpBZq8lcm8SHmfJQNOJCg==" length="21845671" type="application/octet-stream"/>
+      <enclosure url="https://github.com/NAL-6295/voicedict-releases/releases/download/local-v0.7.1/VoiceDict-Local-0.7.1.zip" sparkle:edSignature="bIC3Kw2SSrnHDkfMakTW4EV80xGxgqfBPCgd3/JSG1r46jaNh2zkp7YamDTLme5PpE2wOm+CpicerwnzWQbiAw==" length="23336672" type="application/octet-stream"/>
     </item>
   </channel>
 </rss>
