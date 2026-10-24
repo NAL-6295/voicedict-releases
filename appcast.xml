@@ -3,16 +3,55 @@
   <channel>
     <title>VoiceDict</title>
     <item>
-      <title>VoiceDict v0.7.1</title>
-      <pubDate>Mon, 24 Aug 2026 15:43:29 +0000</pubDate>
-      <sparkle:version>20</sparkle:version>
-      <sparkle:shortVersionString>0.7.1</sparkle:shortVersionString>
+      <title>VoiceDict v0.7.3</title>
+      <pubDate>Sat, 24 Oct 2026 19:15:19 +0000</pubDate>
+      <sparkle:version>22</sparkle:version>
+      <sparkle:shortVersionString>0.7.3</sparkle:shortVersionString>
       <sparkle:minimumSystemVersion>14.0</sparkle:minimumSystemVersion>
       <description><![CDATA[<pre style="font-family: -apple-system, sans-serif; white-space: pre-wrap;">
-VoiceDict v0.7.1 リリースノート
+VoiceDict v0.7.3 リリースノート
 ==================================
 
 このバージョンの主要変更点。
+
+■ 自動アップデート機能のセキュリティを強化
+アップデートに使っている Sparkle を 2.10.0 に更新し、更新ファイルの
+扱いに関するセキュリティ修正を取り込みました。機能や設定に変更は
+ありません。
+
+v0.7.2 から継承される機能
+--------------------------
+
+■ OpenAI の音声認識モデルを gpt-transcribe に更新 (重要)
+OpenAI Whisper API の選択肢に gpt-transcribe を追加し、推奨・既定に
+しました。これまでの gpt-4o-transcribe / gpt-4o-mini-transcribe は
+OpenAI が 2027 年 2 月 26 日に提供を終了します。終了後はこれらを選んで
+いると音声認識が失敗するため、OpenAI の音声認識をお使いの方は
+設定 → プロバイダ で gpt-transcribe を選び直してください
+(保存済みの設定は自動では切り替わりません)。
+
+■ オンデバイス後処理 LLM (MLX) の既定を Gemma 4 E4B に変更
+選択肢に Google の Gemma 4 E4B / E2B を追加し、新規インストール時の既定を
+音声入力・Edit Mode とも Gemma 4 E4B にしました (ダウンロード約 5.2GB)。
+日本語の整形と、翻訳・要約・敬語化の各タスクを実機で比較した結果、
+内容を書き換えず指示に忠実だったのがこのモデルでした。これまでの既定
+(Qwen3 4B Instruct 2507) は、比較の中で金額を書き換えてしまう例が
+見つかりました。E2B は約 3.6GB と軽く、より高速です。
+既にお使いの方の設定は変わりません。切り替えたい場合は 設定 → プロバイダ の
+MLX モデル選択から選び直してください。
+
+■ 思考型モデルの思考文が本文として挿入される問題を修正
+Qwen3.5 などの思考型モデルで、推敲中のメモがそのまま入力欄に挿入される
+ことがありました。本文だけを取り出すよう修正し、思考が終わらないまま
+打ち切られた場合は挿入せずエラーを表示するようにしました。
+
+■ Phi-4 mini を非推奨に
+Edit Mode の比較で「英語にして」に日本語のまま返す、依頼文を自分の
+宣言に書き換えるといった誤りが目立ったため、非推奨と表示するように
+しました。選択中の方はそのまま使えます。
+
+v0.7.1 から継承される機能
+--------------------------
 
 ■ オンデバイス音声認識 (WhisperKit) に精度重視のモデルを追加
 Settings → Providers の WhisperKit モデル選択に、次の 2 つを追加しました。
@@ -254,7 +293,7 @@ v0.2.1 から継承される機能
 - SFSpeechRecognizer 権限を起動時/Settings 切替時に先回り request。
 - WhisperKit streaming モードの文末欠損を緩和。
 </pre>]]></description>
-      <enclosure url="https://github.com/NAL-6295/voicedict-releases/releases/download/v0.7.1/VoiceDict-0.7.1.zip" sparkle:edSignature="8e1lUeT5KL31tQ3M5iGFZKLA1n57vY2wBzNbz5kmHwJ+0gmElQoBzpq+uyMTMkn689cNiWYprmLZAVVsMnXqBA==" length="39094835" type="application/octet-stream"/>
+      <enclosure url="https://github.com/NAL-6295/voicedict-releases/releases/download/v0.7.3/VoiceDict-0.7.3.zip" sparkle:edSignature="8LUH0nS0F1mM2GIfpT9myvQ4yHe483G8AUjR97RvRMm+DuuE7kKgWD/h3a4JpK+4E9LsSLDuhpZl+PWinDY7Ag==" length="43900007" type="application/octet-stream"/>
     </item>
   </channel>
 </rss>
