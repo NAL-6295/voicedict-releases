@@ -3,16 +3,26 @@
   <channel>
     <title>VoiceDict Local</title>
     <item>
-      <title>VoiceDict Local v0.7.3</title>
-      <pubDate>Sat, 24 Oct 2026 19:20:56 +0000</pubDate>
-      <sparkle:version>22</sparkle:version>
-      <sparkle:shortVersionString>0.7.3</sparkle:shortVersionString>
+      <title>VoiceDict Local v0.7.4</title>
+      <pubDate>Tue, 03 Nov 2026 15:00:26 +0000</pubDate>
+      <sparkle:version>23</sparkle:version>
+      <sparkle:shortVersionString>0.7.4</sparkle:shortVersionString>
       <sparkle:minimumSystemVersion>14.0</sparkle:minimumSystemVersion>
       <description><![CDATA[<pre style="font-family: -apple-system, sans-serif; white-space: pre-wrap;">
-VoiceDict Local v0.7.3 リリースノート
+VoiceDict Local v0.7.4 リリースノート
 ======================================
 
 このバージョンの主要変更点。
+
+■ オンデバイス後処理 LLM (MLX) のモデルを特定の版に固定
+MLX のモデルは、ダウンロードと読み込みのたびに配布元の最新版を
+取りに行っていました。配布元でファイルが差し替えられると、検証して
+いない版がそのまま使われてしまうため、モデルごとに確認済みの版へ
+固定しました。ダウンロード済みのモデルはそのまま使えます。
+操作や設定の変更はありません。
+
+v0.7.3 から継承される機能
+--------------------------
 
 ■ 自動アップデート機能のセキュリティを強化
 アップデートに使っている Sparkle を 2.10.0 に更新し、更新ファイルの
@@ -85,7 +95,7 @@ Apple SFSpeechRecognizer + NaturalLanguage (いずれも既定) の構成なら
 
 機能面は通常版 v0.7.2 と同じです。クラウド関連以外の変更はありません。
 </pre>]]></description>
-      <enclosure url="https://github.com/NAL-6295/voicedict-releases/releases/download/local-v0.7.3/VoiceDict-Local-0.7.3.zip" sparkle:edSignature="wFCjLU2ADKKu+f/jXCqpbM6um1/cF4vcztHcawtyKHiC4a0fm1D05SKpZf4DrGUNqrhzwdMQRQjueYALjfWYCg==" length="26003250" type="application/octet-stream"/>
+      <enclosure url="https://github.com/NAL-6295/voicedict-releases/releases/download/local-v0.7.4/VoiceDict-Local-0.7.4.zip" sparkle:edSignature="Xd7P4HyX23yi9x5IpYt5pEe1RCvwo1Tox6/gu494ftARSv9PU5YEgWiDqdD/hpHSTNW3K6y+eGCyZSWifl2gBw==" length="26006393" type="application/octet-stream"/>
     </item>
   </channel>
 </rss>
